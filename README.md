@@ -1,4 +1,8 @@
-# Arquetipo NestJS + JWT + Roles Manager (RBAC)
+#NestJS + JWT + Roles Manager (RBAC)
+
+![alt text](assets/2.png)
+
+![alt text](assets/1.png)
 
 ### Commands Inject roles
 ```sql
