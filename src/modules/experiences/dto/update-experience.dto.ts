@@ -2,14 +2,13 @@ import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDate,
-  IsNotEmpty,
   IsOptional,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
-export class CreateExperienceDto {
-  @IsNotEmpty()
+export class UpdateExperienceDto {
+  @IsOptional()
   @MinLength(2)
   @MaxLength(255)
   name: string;
@@ -19,7 +18,7 @@ export class CreateExperienceDto {
   @MaxLength(255)
   description: string | null;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDate()
   @Type(() => Date)
   start_date: Date;

@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { ExperienceModule } from './modules/experiences/experience.module';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 @Module({
   imports: [
@@ -24,6 +25,6 @@ import { ExperienceModule } from './modules/experiences/experience.module';
     ExperienceModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [HttpExceptionFilter],
 })
 export class AppModule {}

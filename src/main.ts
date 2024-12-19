@@ -5,6 +5,7 @@ import { useContainer, ValidationError } from 'class-validator';
 import * as cookieParser from 'cookie-parser';
 import { formatErrors } from './common/helpers/format-errors.helper';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -25,6 +26,8 @@ async function bootstrap() {
     methods: ['OPTIONS', 'GET', 'POST', 'PUT', 'DELETED'],
   });
 
+  app.useGlobalFilters(new HttpExceptionFilter());
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true, // Convierte automáticamente el DTO a la clase correspondiente
@@ -41,6 +44,6 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

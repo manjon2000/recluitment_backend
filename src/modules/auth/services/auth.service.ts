@@ -4,18 +4,17 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateUserDto } from '../../user/dto/create-user.dto';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/modules/user/entities/user.entity';
-import { LoginUserDto } from 'src/modules/user/dto/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UUID } from 'crypto';
 import { UserRoles } from 'src/modules/user/entities/user-role.entity';
 import { RoleService } from 'src/modules/roles/services/role.service';
 import { ERoles } from 'src/common/enums/roles.enum';
+import { signUpDTO, signInDTO } from '../dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -30,7 +29,7 @@ export class AuthService {
     private readonly roleRepository: RoleService,
   ) {}
 
-  async signUp(signUpDTO: CreateUserDto) {
+  async signUp(signUpDTO: signUpDTO) {
     try {
       const { username, email, password } = signUpDTO;
 
@@ -68,7 +67,7 @@ export class AuthService {
     }
   }
 
-  async signIn(signInDTO: LoginUserDto): Promise<{ access_token: string }> {
+  async signIn(signInDTO: signInDTO): Promise<{ access_token: string }> {
     const { email, password } = signInDTO;
     const user = await this.userRepository.findOne({ where: { email } });
 

@@ -8,11 +8,10 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
-import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
-import { LoginUserDto } from 'src/modules/user/dto/login-user.dto';
 import { AuthService } from '../services/auth.service';
 import { Response } from 'express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { signInDTO, signUpDTO } from '../dto/auth.dto';
 
 @ApiBearerAuth()
 @ApiTags('Auth')
@@ -23,7 +22,7 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() userDTO: CreateUserDto) {
+  async create(@Body() userDTO: signUpDTO) {
     const result = await this.authService.signUp(userDTO);
     if (result) {
       return {
@@ -36,7 +35,7 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(
-    @Body() loginDTO: LoginUserDto,
+    @Body() loginDTO: signInDTO,
     @Res({ passthrough: true }) response: Response,
   ) {
     const result = await this.authService.signIn(loginDTO);

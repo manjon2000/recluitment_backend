@@ -11,7 +11,7 @@ export class UserExperience {
 
   @PrimaryColumn('uuid')
   @Exclude()
-  experience_id: string;
+  experience_id: UUID;
 
   @ManyToOne(() => Experience, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'experience_id' })

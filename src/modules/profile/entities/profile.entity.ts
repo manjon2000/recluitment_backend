@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 import { UUID } from 'crypto';
+import { UserProfile } from 'src/modules/user/entities/user-profile.entity';
 
-@Entity('user_profile')
-export class UserProfile {
+@Entity('profile')
+export class Profile {
   @PrimaryGeneratedColumn('uuid')
-  user_id: UUID;
+  id: UUID;
 
   @Column({ nullable: true })
   bio: string;
@@ -20,4 +21,9 @@ export class UserProfile {
 
   @Column({ nullable: true })
   gitlab: string;
+
+  @OneToOne(() => UserProfile, (userProfile) => userProfile.profile, {
+    onDelete: 'CASCADE',
+  })
+  userProfile: UserProfile;
 }
